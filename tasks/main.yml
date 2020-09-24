@@ -37,6 +37,13 @@
       become: yes
   when: ansible_distribution == 'Debian'
 
+- name: Deploy "custom" index file
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: 644
+  become: yes
+
 - name: Open firewall
   firewalld:
     service: http
