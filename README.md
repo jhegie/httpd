@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install platform appropriate Apache web server, start it, and open the firewall after deploying a customized index.html.
 
 Requirements
 ------------
