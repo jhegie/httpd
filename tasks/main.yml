@@ -1,2 +1,46 @@
 ---
 # tasks file for httpd
+- name: Gather minimal facts subset
+  setup:
+    gather_subset: min
+
+- name: RHEL based installation
+  block:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+      become: yes
+
+    - name: Start/enable service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      become: yes
+  when: ansible_distribution == 'RedHat'
+
+- name: Debian based installation
+  block:
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      become: yes
+
+    - name: Start/enable service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      become: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Open firewall
+  firewalld:
+    service: http
+    state: enabled
+    permanent: yes
+    immediate: yes
+  become: yes
