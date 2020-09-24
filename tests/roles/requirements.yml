@@ -1,0 +1,4 @@
+---
+- name: httpd
+  scm: git
+  src: https://github.com/jhegie/httpd
